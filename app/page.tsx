@@ -138,6 +138,12 @@ export default function Home() {
         } else if (percent > 0) {
           setArrMonth(["9", "12"]);
           setInterestSH(1);
+
+          if (month === "9") {
+            setInterestHH(1.5);
+          } else if (month === "12") {
+            setInterestHH(3.5);
+          }
         }
       } else if (price > 15000000) {
         setArrPercent(["20", "25", "30", "35", "40", "45", "50"]);
