@@ -235,7 +235,7 @@ export default function Home() {
                         onValueChange();
                       }}
                       defaultValue={percent.toString()}
-                      className="grid grid-cols-4 md:grid-cols-8"
+                      className="grid grid-cols-3 md:grid-cols-8"
                     >
                       {arrPercent.map((value) => {
                         return (
