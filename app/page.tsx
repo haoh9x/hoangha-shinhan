@@ -78,19 +78,7 @@ export default function Home() {
   const onValueChange = () => {
     if (product === "apple") {
       setArrMonth(["6", "9", "12"]);
-      setArrPercent([
-        "0",
-        "5",
-        "10",
-        "15",
-        "20",
-        "25",
-        "30",
-        "35",
-        "40",
-        "45",
-        "50",
-      ]);
+      setArrPercent(["30", "35", "40", "45", "50"]);
       if (price >= 3000000 && price <= 50000000) {
         if (percent >= 0 && percent <= 30) {
           if (month === "6") {
@@ -176,157 +164,163 @@ export default function Home() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {}
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="w-2/3 space-y-6"
-        >
-          <FormField
-            control={form.control}
-            name="product"
-            render={({ field }) => (
-              <FormItem className="space-y-3">
-                <FormLabel>Sản phẩm</FormLabel>
-                <FormControl>
-                  <RadioGroup
-                    onValueChange={(e) => {
-                      setProduct(e);
-                    }}
-                    defaultValue={field.value}
-                    className="flex space-x-3"
-                  >
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="apple" />
-                      </FormControl>
-                      <FormLabel className="font-normal">Apple</FormLabel>
-                    </FormItem>
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="nonapple" />
-                      </FormControl>
-                      <FormLabel className="font-normal">Non Apple</FormLabel>
-                    </FormItem>
-                  </RadioGroup>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="price"
-            render={({ field: { value, onChange, ...fieldProps } }) => (
-              <FormItem>
-                <FormLabel>Giá sản phẩm (VNĐ)</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="3.000.000đ"
-                    type="number"
-                    min={3000000}
-                    {...fieldProps}
-                    onChange={(event) => {
-                      setPrice(parseInt(event.target.value));
-                    }}
-                  />
-                </FormControl>
-                <FormDescription>{formatCurrency(price)}đ</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="percent"
-            render={({ field }) => (
-              <FormItem className="space-y-3">
-                <FormLabel>Đưa trước</FormLabel>
-                <FormControl>
-                  <RadioGroup
-                    onValueChange={(e) => {
-                      setPercent(parseInt(e));
-                      onValueChange();
-                    }}
-                    defaultValue={percent.toString()}
-                    className="flex space-x-3"
-                  >
-                    {arrPercent.map((value) => {
-                      return (
-                        <FormItem
-                          key={value}
-                          className="flex items-center space-x-3 space-y-0"
-                        >
-                          <FormControl>
-                            <RadioGroupItem value={value} />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            {value} %
-                          </FormLabel>
-                        </FormItem>
-                      );
-                    })}
-                  </RadioGroup>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="month"
-            render={({ field }) => (
-              <FormItem className="space-y-3">
-                <FormLabel>Số tháng góp</FormLabel>
-                <FormControl>
-                  <RadioGroup
-                    onValueChange={(e) => {
-                      setMonth(e);
-                    }}
-                    defaultValue={month}
-                    className="flex flex-col space-y-1"
-                  >
-                    {arrMonth.map((value) => {
-                      return (
-                        <FormItem
-                          key={value}
-                          className="flex items-center space-x-3 space-y-0"
-                        >
-                          <FormControl>
-                            <RadioGroupItem value={value} />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            {value} tháng
-                          </FormLabel>
-                        </FormItem>
-                      );
-                    })}
-                  </RadioGroup>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div>
-            Số tiền đưa trước: {formatCurrency((price * percent) / 100)}đ
-          </div>
-          <div>
-            Phí Hoàng Hà thu: {interestHH}%,{" "}
-            {formatCurrency((price * interestHH) / 100)}đ
-          </div>
-          <div>
-            Số tiền góp mỗi tháng:{" "}
-            {formatCurrency(
-              (price - (price * percent) / 100) / parseInt(month)
-            )}
-            đ
-          </div>
-          <div>
-            Số tiền chênh lệch: {interestSH}% ={" "}
-            {formatCurrency(price * (interestSH / 100))}đ
-          </div>
-        </form>
-      </Form>
+    <main className="flex max-w-8xl mx-auto min-h-screen w-full flex-col items-center justify-between">
+      <div className="w-full p-4 md:px-24 md:py-12">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <FormField
+              control={form.control}
+              name="product"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Sản phẩm</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={(e) => {
+                        setProduct(e);
+                      }}
+                      defaultValue={field.value}
+                      className="flex space-x-3"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="apple" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Apple</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="nonapple" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Non Apple</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="price"
+              render={({ field: { value, onChange, ...fieldProps } }) => (
+                <FormItem>
+                  <FormLabel>Giá sản phẩm (VNĐ)</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="3.000.000đ"
+                      type="number"
+                      min={3000000}
+                      {...fieldProps}
+                      onChange={(event) => {
+                        setPrice(parseInt(event.target.value));
+                      }}
+                    />
+                  </FormControl>
+                  <FormDescription>{formatCurrency(price)}đ</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="percent"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Đưa trước</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={(e) => {
+                        setPercent(parseInt(e));
+                        onValueChange();
+                      }}
+                      defaultValue={percent.toString()}
+                      className="grid grid-cols-4 md:grid-cols-8"
+                    >
+                      {arrPercent.map((value) => {
+                        return (
+                          <FormItem
+                            key={value}
+                            className="flex items-center space-x-3 space-y-0"
+                          >
+                            <FormControl>
+                              <RadioGroupItem value={value} />
+                            </FormControl>
+                            <FormLabel className="font-normal">
+                              {value} %
+                            </FormLabel>
+                          </FormItem>
+                        );
+                      })}
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="month"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Số tháng góp</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={(e) => {
+                        setMonth(e);
+                      }}
+                      defaultValue={month}
+                      className="flex flex-col space-y-1"
+                    >
+                      {arrMonth.map((value) => {
+                        return (
+                          <FormItem
+                            key={value}
+                            className="flex items-center space-x-3 space-y-0"
+                          >
+                            <FormControl>
+                              <RadioGroupItem value={value} />
+                            </FormControl>
+                            <FormLabel className="font-normal">
+                              {value} tháng
+                            </FormLabel>
+                          </FormItem>
+                        );
+                      })}
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div>
+              Số tiền đưa trước: {formatCurrency((price * percent) / 100)}đ
+            </div>
+            <div>
+              Phí Hoàng Hà thu: {interestHH}%,{" "}
+              {formatCurrency((price * interestHH) / 100)}đ
+            </div>
+            <div>
+              Số tiền chênh lệch: {interestSH}% ={" "}
+              {formatCurrency(price * (interestSH / 100))}đ
+            </div>
+            <div className="font-bold">
+              Tổng số tiền đưa trước:{" "}
+              {formatCurrency(
+                (price * interestHH) / 100 + (price * percent) / 100
+              )}{" "}
+              đ
+            </div>
+            <div className="font-bold">
+              Số tiền góp mỗi tháng:{" "}
+              {formatCurrency(
+                (price - (price * percent) / 100) / parseInt(month)
+              )}
+              đ
+            </div>
+          </form>
+        </Form>
+      </div>
     </main>
   );
 }
